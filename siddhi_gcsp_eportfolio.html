@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Siddhi Kabadi — GCSP ePortfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #f5f0e8;
+    --ink: #1a1410;
+    --forest: #2d4a3e;
+    --sage: #7a9e8e;
+    --gold: #c4943a;
+    --rust: #b5522a;
+    --warm-white: #faf8f4;
+    --muted: #8a7f72;
+    --border: rgba(45,74,62,0.15);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--cream); color: var(--ink); font-family: 'DM Sans', sans-serif; font-weight: 300; line-height: 1.7; overflow-x: hidden; }
+
+  /* NAV */
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(245,240,232,0.92); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); padding: 0 3rem; display: flex; align-items: center; justify-content: space-between; height: 60px; }
+  .nav-logo { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; font-weight: 600; letter-spacing: 0.05em; color: var(--forest); text-decoration: none; }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a { text-decoration: none; color: var(--muted); font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--forest); }
+
+  /* HERO */
+  #home { min-height: 100vh; display: grid; grid-template-columns: 1fr 1fr; padding-top: 60px; }
+  .hero-left { padding: 8rem 4rem 6rem 6rem; display: flex; flex-direction: column; justify-content: center; }
+  .hero-eyebrow { font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--sage); margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.75rem; }
+  .hero-eyebrow::before { content: ''; display: block; width: 2rem; height: 1px; background: var(--sage); }
+  h1 { font-family: 'Cormorant Garamond', serif; font-size: clamp(3.5rem, 6vw, 5.5rem); font-weight: 300; line-height: 1.05; color: var(--forest); margin-bottom: 0.2rem; }
+  h1 em { font-style: italic; color: var(--gold); }
+  .hero-tagline { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; font-weight: 300; font-style: italic; color: var(--muted); margin: 1.5rem 0 2.5rem; line-height: 1.5; }
+  .hero-bio { font-size: 0.92rem; color: var(--ink); max-width: 440px; line-height: 1.8; margin-bottom: 3rem; opacity: 0.85; }
+  .hero-details { display: flex; flex-direction: column; gap: 0.5rem; }
+  .hero-detail { display: flex; align-items: center; gap: 0.75rem; font-size: 0.82rem; color: var(--muted); }
+  .hero-detail span.label { font-weight: 500; color: var(--forest); min-width: 80px; }
+  .hero-right { background: var(--forest); position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+  .hero-right-inner { padding: 4rem; color: var(--cream); text-align: center; position: relative; z-index: 2; }
+  .hero-right::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 30% 70%, rgba(196,148,58,0.15) 0%, transparent 60%), radial-gradient(ellipse at 80% 20%, rgba(122,158,142,0.2) 0%, transparent 50%); }
+  .gcsp-badge { display: inline-block; border: 1px solid rgba(196,148,58,0.5); padding: 0.5rem 1.5rem; border-radius: 50px; font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); margin-bottom: 2.5rem; }
+  .theme-display { font-family: 'Cormorant Garamond', serif; font-size: clamp(1.8rem, 3vw, 2.8rem); font-weight: 300; font-style: italic; color: var(--cream); line-height: 1.3; margin-bottom: 3rem; }
+  .competency-pills { display: flex; flex-direction: column; gap: 0.75rem; align-items: center; }
+  .pill { background: rgba(245,240,232,0.08); border: 1px solid rgba(245,240,232,0.15); padding: 0.6rem 1.5rem; border-radius: 4px; font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(245,240,232,0.8); width: 220px; text-align: center; transition: all 0.25s; cursor: default; }
+  .pill:hover { background: rgba(196,148,58,0.15); border-color: rgba(196,148,58,0.4); color: var(--gold); transform: translateX(4px); }
+
+  /* SUSTAINABILITY BANNER */
+  #sustainability-intro { background: var(--ink); padding: 5rem 6rem; }
+  .sustain-inner { max-width: 900px; }
+  .sustain-quote { font-family: 'Cormorant Garamond', serif; font-size: clamp(1.6rem, 3vw, 2.4rem); font-weight: 300; font-style: italic; color: var(--gold); line-height: 1.4; margin-bottom: 2rem; border-left: 3px solid var(--gold); padding-left: 2rem; }
+  .sustain-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 2rem; }
+  .sustain-card { background: rgba(245,240,232,0.04); border: 1px solid rgba(245,240,232,0.1); padding: 1.5rem; }
+  .sustain-card-label { font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--sage); margin-bottom: 0.5rem; }
+  .sustain-card-title { font-family: 'Cormorant Garamond', serif; font-size: 1rem; font-weight: 600; color: var(--cream); margin-bottom: 0.5rem; }
+  .sustain-card p { font-size: 0.83rem; color: rgba(245,240,232,0.65); line-height: 1.7; }
+  .sustain-eyebrow { font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--sage); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.75rem; }
+  .sustain-eyebrow::before { content: ''; display: block; width: 2rem; height: 1px; background: var(--sage); }
+  .sustain-intro-text { font-size: 0.92rem; color: rgba(245,240,232,0.75); line-height: 1.9; max-width: 820px; margin-bottom: 2rem; }
+
+  /* SECTIONS */
+  .page-section { min-height: 100vh; padding: 7rem 6rem; position: relative; }
+  .page-section:nth-child(even) { background: var(--warm-white); }
+  .section-header { display: grid; grid-template-columns: auto 1fr; gap: 2rem; align-items: start; margin-bottom: 4rem; max-width: 900px; }
+  .section-number { font-family: 'Cormorant Garamond', serif; font-size: 5rem; font-weight: 300; line-height: 1; color: rgba(45,74,62,0.12); margin-top: -0.5rem; }
+  .section-eyebrow { font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.5rem; }
+  h2 { font-family: 'Cormorant Garamond', serif; font-size: clamp(2.2rem, 4vw, 3.2rem); font-weight: 400; color: var(--forest); line-height: 1.1; margin-bottom: 0.75rem; }
+  .section-subtitle { font-size: 0.88rem; color: var(--muted); font-style: italic; }
+
+  /* CARDS */
+  .content-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); gap: 1.5rem; max-width: 1100px; }
+  .card { background: var(--cream); border: 1px solid var(--border); padding: 2rem 2.25rem; position: relative; transition: box-shadow 0.3s, transform 0.3s; }
+  .page-section:nth-child(even) .card { background: var(--warm-white); }
+  .card:hover { box-shadow: 0 8px 32px rgba(26,20,16,0.08); transform: translateY(-3px); }
+  .card-accent { position: absolute; top: 0; left: 0; width: 3px; height: 100%; background: var(--gold); }
+  .card-accent.sage { background: var(--sage); }
+  .card-accent.rust { background: var(--rust); }
+  .card-accent.forest { background: var(--forest); }
+  .card-tag { font-size: 0.65rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.75rem; }
+  .card h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; font-weight: 600; color: var(--ink); margin-bottom: 0.75rem; line-height: 1.3; }
+  .card p { font-size: 0.87rem; color: var(--ink); opacity: 0.8; line-height: 1.8; }
+  .card-meta { margin-top: 1.25rem; padding-top: 1.25rem; border-top: 1px solid var(--border); display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; }
+  .tag { font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.25rem 0.65rem; border: 1px solid var(--border); color: var(--muted); border-radius: 2px; }
+  .card-wide { grid-column: 1 / -1; }
+  .card-wide .card-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+
+  /* PDF / LINK BUTTONS */
+  .doc-btn { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.4rem 1rem; font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; border: 1px solid var(--forest); color: var(--forest); text-decoration: none; border-radius: 2px; transition: all 0.2s; }
+  .doc-btn:hover { background: var(--forest); color: var(--cream); }
+  .doc-btn svg { width: 13px; height: 13px; flex-shrink: 0; }
+  .doc-btn.link-btn { border-color: var(--gold); color: var(--gold); }
+  .doc-btn.link-btn:hover { background: var(--gold); color: var(--ink); }
+
+  /* PUBLICATIONS */
+  .pub-list { display: flex; flex-direction: column; gap: 1rem; margin-top: 2rem; max-width: 800px; }
+  .pub-item { padding: 1.25rem 1.5rem; border-left: 3px solid var(--sage); background: rgba(122,158,142,0.06); }
+  .pub-item .pub-title { font-family: 'Cormorant Garamond', serif; font-size: 1.05rem; font-weight: 600; color: var(--ink); line-height: 1.4; margin-bottom: 0.25rem; }
+  .pub-item .pub-venue { font-size: 0.78rem; color: var(--muted); font-style: italic; }
+  .pub-item .pub-status { display: inline-block; margin-top: 0.4rem; font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase; padding: 0.15rem 0.6rem; background: rgba(196,148,58,0.12); color: var(--gold); border-radius: 2px; }
+
+  /* THREAD BOX */
+  .thread-box { background: var(--forest); color: var(--cream); padding: 2.5rem 3rem; margin-bottom: 3rem; max-width: 900px; position: relative; overflow: hidden; }
+  .thread-box::after { content: 'SUSTAINABILITY'; position: absolute; right: -1rem; top: 50%; transform: translateY(-50%) rotate(90deg); font-size: 4rem; font-family: 'Cormorant Garamond', serif; font-weight: 300; opacity: 0.06; letter-spacing: 0.3em; white-space: nowrap; }
+  .thread-box h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; font-weight: 400; font-style: italic; color: var(--gold); margin-bottom: 0.75rem; }
+  .thread-box p { font-size: 0.9rem; line-height: 1.9; opacity: 0.85; }
+
+  /* DIVIDER */
+  .divider { width: 60px; height: 1px; background: var(--gold); margin: 1.5rem 0; }
+
+  /* FOOTER */
+  footer { background: var(--ink); color: var(--cream); padding: 4rem 6rem; display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center; }
+  footer h3 { font-family: 'Cormorant Garamond', serif; font-size: 2rem; font-weight: 300; font-style: italic; color: var(--cream); margin-bottom: 1rem; }
+  footer p { font-size: 0.85rem; opacity: 0.5; line-height: 1.8; }
+  .footer-links { display: flex; flex-direction: column; gap: 0.75rem; align-items: flex-end; }
+  .footer-links a { color: rgba(245,240,232,0.6); text-decoration: none; font-size: 0.82rem; letter-spacing: 0.05em; transition: color 0.2s; }
+  .footer-links a:hover { color: var(--gold); }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+  .hero-left > * { animation: fadeUp 0.7s ease both; }
+  .hero-left > *:nth-child(1) { animation-delay: 0.1s; }
+  .hero-left > *:nth-child(2) { animation-delay: 0.2s; }
+  .hero-left > *:nth-child(3) { animation-delay: 0.3s; }
+  .hero-left > *:nth-child(4) { animation-delay: 0.4s; }
+  .hero-left > *:nth-child(5) { animation-delay: 0.5s; }
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  @media (max-width: 900px) {
+    #home { grid-template-columns: 1fr; }
+    .hero-right { min-height: 50vh; }
+    .hero-left { padding: 6rem 2rem 3rem; }
+    .page-section { padding: 5rem 2rem; }
+    #sustainability-intro { padding: 4rem 2rem; }
+    .sustain-grid { grid-template-columns: 1fr; }
+    footer { grid-template-columns: 1fr; }
+    .footer-links { align-items: flex-start; }
+    .card-wide .card-inner { grid-template-columns: 1fr; }
+    nav { padding: 0 1.5rem; }
+    .nav-links { gap: 1rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#home" class="nav-logo">Siddhi Kabadi</a>
+  <ul class="nav-links">
+    <li><a href="#home">Home</a></li>
+    <li><a href="#sustainability-intro">Sustainability</a></li>
+    <li><a href="#talent">Talent</a></li>
+    <li><a href="#multicultural">Multicultural</a></li>
+    <li><a href="#interdisciplinary">Interdisciplinary</a></li>
+    <li><a href="#social">Social</a></li>
+    <li><a href="#entrepreneurship">Entrepreneurship</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="home">
+  <div class="hero-left">
+    <div class="hero-eyebrow">Grand Challenges Scholar Program</div>
+    <h1>Siddhi<br><em>Kabadi</em></h1>
+    <p class="hero-tagline">Computer Science & Cybersecurity · Santa Clara University</p>
+    <p class="hero-bio">
+      I am a computer science student with a cybersecurity emphasis, graduating June 2026 before pursuing a Master's in Cybersecurity at Brown University. My work lives at the intersection of machine learning, systems security, and sustainable technology — always asking how engineering can better serve people and the planet.
+    </p>
+    <div class="hero-details">
+      <div class="hero-detail"><span class="label">University</span> Santa Clara University</div>
+      <div class="hero-detail"><span class="label">Major</span> B.S. Computer Science (Cybersecurity)</div>
+      <div class="hero-detail"><span class="label">Minors</span> Economics & Mathematics</div>
+      <div class="hero-detail"><span class="label">GCSP Theme</span> Sustainability</div>
+      <div class="hero-detail"><span class="label">Mentor</span> Dr. Navid Shaghaghi</div>
+      <div class="hero-detail"><span class="label">Contact</span> skabadi@scu.edu</div>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-right-inner">
+      <div class="gcsp-badge">GCSP Scholar</div>
+      <div class="theme-display">
+        "Engineering a more<br>sustainable world through<br>technology & design."
+      </div>
+      <div class="competency-pills">
+        <div class="pill">Talent</div>
+        <div class="pill">Multicultural</div>
+        <div class="pill">Interdisciplinary</div>
+        <div class="pill">Social Consciousness</div>
+        <div class="pill">Entrepreneurship</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SUSTAINABILITY INTRO -->
+<section id="sustainability-intro">
+  <div class="sustain-inner reveal">
+    <div class="sustain-eyebrow">My GCSP Theme</div>
+    <div class="sustain-quote">"Sustainability isn't just saving trees — it's designing systems that preserve resources, access, and opportunity for the future."</div>
+    <p class="sustain-intro-text">
+      Sustainability is my throughline, but it shows up differently across each competency. Sometimes it's literal: building a solar-powered irrigation system that prevents water waste on community farms, or planting trees to restore urban green infrastructure. But sustainability is also about preserving computational resources, human time, and equitable access to technology. A password policy that wastes GPU cycles and locks out users is an unsustainable system. A VR platform that replaces repeated physical testing environments is a more resource-conscious way to do research. No matter the project, I ask the same core question: <em>what are we consuming, and how do we preserve more of it?</em>
+    </p>
+    <div class="sustain-grid">
+      <div class="sustain-card">
+        <div class="sustain-card-label">Talent</div>
+        <div class="sustain-card-title">Preserving Physical Resources</div>
+        <p>VR replaces repeated physical test setups with a single virtual environment. ML automates cognitive screening that would otherwise require expensive repeated in-person evaluations.</p>
+      </div>
+      <div class="sustain-card">
+        <div class="sustain-card-label">Multicultural</div>
+        <div class="sustain-card-title">Preserving Computational Equity</div>
+        <p>Poor password policies waste massive GPU energy through unnecessary brute-force attacks and resets. Smarter, ML-informed policies reduce this overhead while making security accessible to all users.</p>
+      </div>
+      <div class="sustain-card">
+        <div class="sustain-card-label">Interdisciplinary</div>
+        <div class="sustain-card-title">Preserving Water & Community</div>
+        <p>Solar-powered LoRa sensors give small farms real-time soil data to prevent over-irrigation — conserving water and reducing the cost burden on under-resourced community growers.</p>
+      </div>
+      <div class="sustain-card">
+        <div class="sustain-card-label">Social + Entrepreneurship</div>
+        <div class="sustain-card-title">Preserving the Environment</div>
+        <p>Tree-planting restores urban ecosystems. Frugal, open-source engineering tools ensure that sustainable technology doesn't stay locked behind a $2,000 price tag.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TALENT -->
+<section id="talent" class="page-section">
+  <div class="section-header reveal">
+    <div class="section-number">01</div>
+    <div class="section-title-group">
+      <div class="section-eyebrow">Competency One</div>
+      <h2>Talent</h2>
+      <div class="section-subtitle">Research or Major Project — depth in a Grand Challenge area</div>
+    </div>
+  </div>
+
+  <div class="thread-box reveal">
+    <h3>How This Connects to Sustainability</h3>
+    <p>VR and ML are sustainability tools in disguise. Rather than repeating physical experiments in real manufacturing spaces — consuming materials, energy, and time — a VR digital twin lets researchers simulate and study the same environment indefinitely within a single platform. My ML model for dementia detection takes this further: instead of requiring repeated, resource-intensive clinical evaluations, it automates cognitive screening from eye-tracking data collected in VR. Both projects are about preservation — preserving physical resources, clinical capacity, and researcher time by building smarter, software-first systems.</p>
+  </div>
+
+  <div class="content-grid">
+    <div class="card reveal">
+      <div class="card-accent"></div>
+      <div class="card-tag">Project 1 · NSF REU, University of Louisville</div>
+      <h3>VR Digital Twin for Manufacturing</h3>
+      <p>Developed a virtual reality environment in Unity using Photon Fusion to simulate a digital twin of a collaborative manufacturing system. Collected eye-tracking and user-interaction data to study task performance, applied statistical methods (t-tests, Spearman correlation) to evaluate usability and cognitive load, and proposed data-driven design improvements co-authored in a journal paper and presented at HFES 2026.</p>
+      <div class="card-meta">
+        <span class="tag">Unity / C#</span>
+        <span class="tag">Python</span>
+        <span class="tag">HCI</span>
+        <span class="tag">Digital Twin</span>
+        <a href="digital-twin-poster.pdf" target="_blank" class="doc-btn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+          View Poster
+        </a>
+      </div>
+    </div>
+
+    <div class="card reveal">
+      <div class="card-accent sage"></div>
+      <div class="card-tag">Project 2 · NSF REU, University of Louisville</div>
+      <h3>ML-Based Dementia Detection via Eye Tracking</h3>
+      <p>Designed a machine learning model trained on eye-tracking data from VR interactions to predict likelihood of dementia — automating traditional cognitive analysis tests and making detection scalable and resource-efficient. The project is being submitted to the University of Louisville Medical School for implementation in early dementia detection programs.</p>
+      <div class="card-meta">
+        <span class="tag">Machine Learning</span>
+        <span class="tag">Eye Tracking</span>
+        <span class="tag">VR/AR</span>
+        <span class="tag">Healthcare</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="pub-list reveal">
+    <div class="pub-item">
+      <div class="pub-title">Design Principles and Usability Analysis of Virtual Reality Manufacturing Digital Twins</div>
+      <div class="pub-venue">Aqlan, F., Kabadi, S. — MDPI Systems Journal, 2025 · Poster: HFES 70th International Annual Meeting 2026</div>
+      <span class="pub-status">In Preparation</span>
+    </div>
+    <div class="pub-item">
+      <div class="pub-title">Poster Presentation — IMECE 2025</div>
+      <div class="pub-venue">NSF REU Research, University of Louisville</div>
+      <span class="pub-status">Accepted</span>
+    </div>
+  </div>
+</section>
+
+<!-- MULTICULTURAL -->
+<section id="multicultural" class="page-section">
+  <div class="section-header reveal">
+    <div class="section-number">02</div>
+    <div class="section-title-group">
+      <div class="section-eyebrow">Competency Two</div>
+      <h2>Multicultural</h2>
+      <div class="section-subtitle">Global perspective — understanding challenges across contexts</div>
+    </div>
+  </div>
+
+  <div class="thread-box reveal">
+    <h3>How This Connects to Sustainability</h3>
+    <p>Sustainable technology must also be equitable. My multicultural experiences taught me that the systems we build — especially in security — carry hidden costs when they exclude or disadvantage users. Outdated password policies based on LUDS rules cause massive GPU waste through energy-intensive brute-force attacks, high reset rates, and repeated failed authentication. They also disproportionately burden users who aren't designing systems for themselves. Participating in spaces like Grace Hopper and ACM-W showed me that sustainability in computing means building for diverse users from the start — because exclusionary systems always waste more, in energy and in human potential.</p>
+  </div>
+
+  <div class="content-grid">
+    <div class="card reveal">
+      <div class="card-accent rust"></div>
+      <div class="card-tag">Conference & Community</div>
+      <h3>Grace Hopper Celebration & Women in CyberSecurity (WiCyS)</h3>
+      <p>Attended the Grace Hopper Celebration, the world's largest gathering of women in computing, where I participated in technical sessions, career panels, and discussions on representation and accessibility in engineering. As a WiCyS member, I engaged with ongoing conversations about mentorship and the systemic challenges women face in computing — building a deeper appreciation for how inclusive communities create more resilient and sustainable technical fields.</p>
+      <div class="card-meta">
+        <span class="tag">Grace Hopper</span>
+        <span class="tag">WiCyS</span>
+        <span class="tag">Diversity & Inclusion</span>
+        <span class="tag">Mentorship</span>
+      </div>
+    </div>
+
+    <div class="card reveal">
+      <div class="card-accent forest"></div>
+      <div class="card-tag">Research · Presented at ACM-W Cascadia 2025</div>
+      <h3>ML Framework for Password Security</h3>
+      <p>Conducted research under Dr. Shiva Houshmand on how ML can modernize password strength evaluation. Fine-tuned a BERT model on 468K labeled passwords to classify strength beyond rigid LUDS rules, achieving 87% accuracy. Explored how current energy-intensive password cracking systems (John the Ripper, Hashcat) represent a sustainability problem as much as a security one. Accepted as a poster at the 2025 ACM-W Cascadia Computing Conference.</p>
+      <div class="card-meta">
+        <span class="tag">BERT / NLP</span>
+        <span class="tag">PyTorch</span>
+        <span class="tag">Cybersecurity</span>
+        <span class="tag">ACM-W</span>
+        <a href="password-poster.pdf" target="_blank" class="doc-btn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+          View Poster
+        </a>
+        <a href="password-abstract.pdf" target="_blank" class="doc-btn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+          View Abstract
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="pub-list reveal">
+    <div class="pub-item">
+      <div class="pub-title">ML Framework for Password Policies</div>
+      <div class="pub-venue">Kabadi, S., Houshmand, S. — ACMW Cascadia Computing Conference, 2025</div>
+      <span class="pub-status">Accepted</span>
+    </div>
+  </div>
+</section>
+
+<!-- INTERDISCIPLINARY -->
+<section id="interdisciplinary" class="page-section">
+  <div class="section-header reveal">
+    <div class="section-number">03</div>
+    <div class="section-title-group">
+      <div class="section-eyebrow">Competency Three</div>
+      <h2>Interdisciplinary</h2>
+      <div class="section-subtitle">Connecting fields — engineering, humanities, science, and society</div>
+    </div>
+  </div>
+
+  <div class="thread-box reveal">
+    <h3>How This Connects to Sustainability</h3>
+    <p>The Hydration Automation project is sustainability in its most direct form — but it took an interdisciplinary team to make it work. Engineers alone couldn't have understood the farming community's needs; business school collaborators shaped the market framing; CAS perspectives informed how we communicated with Veggielution. The system itself was built for preservation: solar-powered infrastructure to eliminate grid dependency, LoRa radio for low-power wireless transmission, and real-time soil moisture data to prevent over-irrigation and nutrient leaching. Every design decision asked: what can we eliminate, reuse, or reduce?</p>
+  </div>
+
+  <div class="content-grid">
+    <div class="card card-wide reveal">
+      <div class="card-accent"></div>
+      <div class="card-tag">Research Project · EPIC Lab & Frugal Innovation Hub · IEEE EPICS Funded</div>
+      <h3>Hydration Automation: LoRa-based Smart Irrigation for Community Farms</h3>
+      <div class="card-inner">
+        <p>At the Ethical, Pragmatic, and Intelligent Computing Laboratory under Dr. Navid Shaghaghi — also part of the Frugal Innovation Hub — I helped design and deploy a cost-effective smart irrigation platform for urban community farms. I developed a RESTful API (Node.js/Express) to log IoT sensor data and a React/Next.js dashboard with real-time soil moisture visualization. The system runs on solar-powered LoRa nodes at under $75/node — a fraction of commercial alternatives ($500–$2,500+).</p>
+        <p>The team spans business, engineering, and CAS — truly cross-disciplinary. Presented at IEEE MIT URTC (2025), IEEE GHTC (2025), and Stanford TETHICON (2026). Deployment is live at Veggielution Community Farm in San José, CA with 8+ sensing units in the field. I also completed the Digital Age Pathway and hold double minors in Economics and Mathematics — both non-engineering disciplines that directly inform market analysis and quantitative modeling.</p>
+      </div>
+      <div class="card-meta">
+        <span class="tag">IoT / LoRa</span>
+        <span class="tag">React / Next.js</span>
+        <span class="tag">Node.js</span>
+        <span class="tag">Solar Infrastructure</span>
+        <span class="tag">Agriculture</span>
+        <span class="tag">MIT URTC</span>
+        <span class="tag">IEEE GHTC</span>
+        <span class="tag">Stanford Tethicon</span>
+        <a href="irrigation-poster.pdf" target="_blank" class="doc-btn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+          View Poster
+        </a>
+      </div>
+    </div>
+
+    <div class="card reveal">
+      <div class="card-accent sage"></div>
+      <div class="card-tag">Academic</div>
+      <h3>Digital Age Pathway</h3>
+      <p>Successfully completed the Digital Age Pathway at SCU, connecting coursework and experiences to a common interdisciplinary theme. The Pathway required coursework, experiences, and a reflective essay explicitly tied to the chosen theme and GCSP Grand Challenge focus.</p>
+      <div class="card-meta">
+        <span class="tag">Pathway Complete</span>
+        <span class="tag">Interdisciplinary</span>
+      </div>
+    </div>
+
+    <div class="card reveal">
+      <div class="card-accent rust"></div>
+      <div class="card-tag">Academic</div>
+      <h3>Double Minor: Economics & Mathematics</h3>
+      <p>Pursued both an Economics and Mathematics minor alongside Computer Science. These non-engineering disciplines provide quantitative reasoning and market analysis skills that directly informed the competitive analysis and deployment strategy for the smart irrigation project.</p>
+      <div class="card-meta">
+        <span class="tag">Economics</span>
+        <span class="tag">Mathematics</span>
+        <span class="tag">Non-Engineering Minor</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="pub-list reveal">
+    <div class="pub-item">
+      <div class="pub-title">Hydration Automation: LoRa-based Smart Irrigation for Community Farms</div>
+      <div class="pub-venue">Kabadi, S. et al., Shaghaghi, N. — IEEE MIT URTC 2025 · IEEE GHTC 2025 · Stanford TETHICON 2026</div>
+      <span class="pub-status">Presented</span>
+    </div>
+  </div>
+</section>
+
+<!-- SOCIAL CONSCIOUSNESS -->
+<section id="social" class="page-section">
+  <div class="section-header reveal">
+    <div class="section-number">04</div>
+    <div class="section-title-group">
+      <div class="section-eyebrow">Competency Four</div>
+      <h2>Social Consciousness</h2>
+      <div class="section-subtitle">Service learning — working with those most affected by Grand Challenges</div>
+    </div>
+  </div>
+
+  <div class="thread-box reveal">
+    <h3>How This Connects to Sustainability</h3>
+    <p>Both of my social consciousness experiences engage sustainability at the community level — where the effects of environmental choices are most visible. Urban tree-planting with Our City Forest directly combats urban heat islands, improves air quality, and builds long-term green infrastructure in underserved San José neighborhoods. Presenting at Stanford Tethicon with the Miller Center connected our smart irrigation technology to a broader ecosystem of social entrepreneurs asking the same questions about resource access and environmental justice. Sustainability isn't just an engineering problem — it's a community one, and both experiences kept me grounded in that reality.</p>
+  </div>
+
+  <div class="content-grid">
+    <div class="card reveal">
+      <div class="card-accent"></div>
+      <div class="card-tag">Community Service · Fall Quarter (10 Weeks) · ELSJ</div>
+      <h3>Our City Forest — Urban Tree Planting</h3>
+      <p>Volunteered with Our City Forest for 10 weeks during fall quarter, participating in tree-planting initiatives throughout San José communities. This hands-on environmental service fulfilled the Experiential Learning for Social Justice (ELSJ) requirement, connecting ecological stewardship directly to the GCSP Sustainability theme. Each planted tree contributes to urban carbon sequestration, cooling, and biodiversity preservation.</p>
+      <div class="card-meta">
+        <span class="tag">30+ Hours</span>
+        <span class="tag">ELSJ</span>
+        <span class="tag">Environmental</span>
+        <span class="tag">Community</span>
+      </div>
+    </div>
+
+    <div class="card reveal">
+      <div class="card-accent gold"></div>
+      <div class="card-tag">Engagement · Miller Center / Frugal Innovation Hub · 2026</div>
+      <h3>Stanford TETHICON 2026 — Poster & Ethics Discussion</h3>
+      <p>Represented the Frugal Innovation Hub at the 2026 Stanford Tethicon, presenting the Hydration Automation project among Miller Center for Social Entrepreneurship members. Participated in discussions on tech ethics, responsible innovation, and the role of engineering in underserved communities — bridging technical practice with the social responsibility at the heart of sustainable design.</p>
+      <div class="card-meta">
+        <span class="tag">Miller Center</span>
+        <span class="tag">Tech Ethics</span>
+        <span class="tag">Poster Session</span>
+        <span class="tag">Community Engagement</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ENTREPRENEURSHIP -->
+<section id="entrepreneurship" class="page-section">
+  <div class="section-header reveal">
+    <div class="section-number">05</div>
+    <div class="section-title-group">
+      <div class="section-eyebrow">Competency Five</div>
+      <h2>Viable Business &<br>Entrepreneurship</h2>
+      <div class="section-subtitle">Translating innovation into practical, market-aware solutions</div>
+    </div>
+  </div>
+
+  <div class="thread-box reveal">
+    <h3>How This Connects to Sustainability</h3>
+    <p>Good sustainable technology only matters if it can reach the people who need it. Entrepreneurship is the bridge. The smart irrigation system was designed from the ground up to be economically viable for community farms — under $75/node with no recurring software fees, compared to $1,500–$2,500/year from commercial competitors. My work at the Ciocca Center taught me how to evaluate whether an idea is not just technically sound, but economically durable. Sustainability and entrepreneurship share the same core discipline: building things that last.</p>
+  </div>
+
+  <div class="content-grid">
+    <div class="card reveal">
+      <div class="card-accent forest"></div>
+      <div class="card-tag">Project · Frugal Innovation Hub</div>
+      <h3>Smart Irrigation Deployment at Veggielution</h3>
+      <p>Created and deployed a low-cost smart irrigation system to Veggielution, a community farm in San José. Conducted literature reviews and market analysis benchmarking against Rain Bird, Hunter, Tektelic, and Tevatronic — demonstrating that the system delivers wireless, solar, modular precision irrigation at ~3% of the cost of nearest competitors. A direct translation of frugal engineering into a viable, sustainable product.</p>
+      <div class="card-meta">
+        <span class="tag">Market Analysis</span>
+        <span class="tag">IoT</span>
+        <span class="tag">Deployment</span>
+        <span class="tag">Frugal Innovation</span>
+      </div>
+    </div>
+
+    <div class="card reveal">
+      <div class="card-accent"></div>
+      <div class="card-tag">Leadership · Ciocca Center for Innovation & Entrepreneurship</div>
+      <h3>Student Ambassador & Pitch Competition Facilitator</h3>
+      <p>Served as a student ambassador at the Ciocca Center in 2024 and 2025, helping organize and run the Business Pitch Competition and the VCIC (Venture Capital Investment Competition). These roles developed practical skills in venture evaluation, entrepreneurial communication, and connecting student innovation to real investment ecosystems.</p>
+      <div class="card-meta">
+        <span class="tag">Pitch Competition</span>
+        <span class="tag">VCIC</span>
+        <span class="tag">Leadership</span>
+        <a href="https://hyperstack.id/credential/66b345ad-24f4-41b8-a528-de240663fc38" target="_blank" class="doc-btn link-btn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          View Credential
+        </a>
+      </div>
+    </div>
+
+    <div class="card reveal">
+      <div class="card-accent sage"></div>
+      <div class="card-tag">Program · Ciocca Center / Mindset Scholar</div>
+      <h3>Idea Lab & Design Thinking (ENGR 166)</h3>
+      <p>Participated in the Mindset Scholar Program's Idea Lab, led by Cristina Cismas Florea, learning the design thinking process and developing an original problem statement and solution. Also completed ENGR 166 (Design Thinking) and took coursework in the Business School — reinforcing a human-centered entrepreneurial mindset across disciplines.</p>
+      <div class="card-meta">
+        <span class="tag">Design Thinking</span>
+        <span class="tag">ENGR 166</span>
+        <span class="tag">Ideation</span>
+        <span class="tag">Business Coursework</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div>
+    <h3>Thank you for visiting.</h3>
+    <div class="divider"></div>
+    <p>Siddhi Kabadi · Santa Clara University · Grand Challenges Scholar Program<br>
+    Theme: Sustainability · Graduating June 2026<br><br>
+    Continuing as M.S. Cybersecurity at Brown University, Fall 2026.</p>
+  </div>
+  <div class="footer-links">
+    <a href="mailto:skabadi@scu.edu">skabadi@scu.edu</a>
+    <a href="https://siddhi-kabadi.github.io/portfolio/" target="_blank">siddhi-kabadi.github.io/portfolio</a>
+    <a href="#home">↑ Back to top</a>
+  </div>
+</footer>
+
+<script>
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 60);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+  reveals.forEach(el => observer.observe(el));
+
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-links a');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(s => { if (window.scrollY >= s.offsetTop - 80) current = s.id; });
+    navLinks.forEach(a => { a.style.color = a.getAttribute('href') === '#' + current ? 'var(--forest)' : ''; });
+  });
+</script>
+</body>
+</html>
